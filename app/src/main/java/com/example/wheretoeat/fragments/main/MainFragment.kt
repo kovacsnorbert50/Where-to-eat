@@ -1,20 +1,26 @@
 package com.example.wheretoeat.fragments.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.wheretoeat.Item
-import com.example.wheretoeat.ItemAdapter
-import com.example.wheretoeat.MainActivity
-import com.example.wheretoeat.R
-import kotlinx.android.synthetic.main.fragment_list.view.*
+import androidx.recyclerview.widget.RecyclerView
+import com.example.wheretoeat.*
+import com.example.wheretoeat.modul.Restaurant
+import com.example.wheretoeat.repository.Repository
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
 class MainFragment : Fragment() {
+
+    private lateinit var viewModel: MainViewModel
+    private lateinit var recyc_view: RecyclerView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,28 +31,21 @@ class MainFragment : Fragment() {
         view.profil_btn.setOnClickListener{
             findNavController().navigate(R.id.action_mainFragment_to_profilFragment)
         }
-        //view.recycler_view.adapter = ItemAdapter()
-        val exampleList = generateDummyList(500)
 
-        view.recycler_view.adapter = ItemAdapter(exampleList)
-        //view.recycler_view.layoutManager = LinearLayoutManager(this)
+        val repository = Repository()
+        val viewModelFactory = MainViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+        viewModel.getRestaurants()
+
+        viewModel.myResponse3.observe(viewLifecycleOwner, Observer { response ->
+            recyc_view.adapter = ItemAdapter(response.restaurants)
+            viewModel.restaurant.addAll(response.restaurants)
+        })
+
+        recyc_view = view.recycler_view
+        view.recycler_view.layoutManager = LinearLayoutManager(this.context)
         view.recycler_view.setHasFixedSize(true)
 
         return view
-    }
-
-    private fun generateDummyList(size: Int): List<Item> {
-        val list = ArrayList<Item>()
-
-        for (i in 0 until size) {
-            val drawable = when (i % 3) {
-                0 -> R.drawable.ic_home
-                1 -> R.drawable.ic_home
-                else -> R.drawable.ic_home
-            }
-            val item = Item(drawable, "Item $i", "Line 2")
-            list += item
-        }
-        return list
     }
 }

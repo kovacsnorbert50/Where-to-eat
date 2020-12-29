@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wheretoeat.modul.Cities
 import com.example.wheretoeat.modul.Countries
+import com.example.wheretoeat.modul.Restaurant
 import com.example.wheretoeat.modul.Restaurants
 import com.example.wheretoeat.repository.Repository
 import kotlinx.coroutines.launch
@@ -14,6 +15,7 @@ class MainViewModel(private val repository: Repository): ViewModel() {
     val myResponse1: MutableLiveData<Cities> = MutableLiveData()
     val myResponse2: MutableLiveData<Countries> = MutableLiveData()
     val myResponse3: MutableLiveData<Restaurants> = MutableLiveData()
+    val restaurant: MutableList<Restaurant> = mutableListOf()
 
     fun getCities(){
         viewModelScope.launch {
@@ -35,5 +37,7 @@ class MainViewModel(private val repository: Repository): ViewModel() {
             myResponse3.value = response3
         }
     }
+
+
 
 }

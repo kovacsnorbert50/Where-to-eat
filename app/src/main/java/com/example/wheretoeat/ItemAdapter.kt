@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.wheretoeat.modul.Restaurant
 import kotlinx.android.synthetic.main.one_item.view.*
 
-class ItemAdapter(private val exampleList: List<Item>) :
+class ItemAdapter(private val List: List<Restaurant>) :
         RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -20,17 +21,17 @@ class ItemAdapter(private val exampleList: List<Item>) :
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
-        val currentItem = exampleList[position]
+        val currentItem = List[position]
 
-        holder.restaurantImage.setImageResource(currentItem.imageResource)
-        holder.restaurantName.text = currentItem.text1
-        holder.restaurantAddress.text = currentItem.text2
+        //holder.restaurantImage.setImageResource(currentItem.)
+        holder.restaurantName.text = currentItem.name
+        holder.restaurantAddress.text = currentItem.address
     }
 
-    override fun getItemCount() = exampleList.size
+    override fun getItemCount() = List.size
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val restaurantImage: ImageView = itemView.recycler_image
+        //val restaurantImage: ImageView = itemView.recycler_image
         val restaurantName: TextView = itemView.recycler_name
         val restaurantAddress: TextView = itemView.recycler_address
     }
