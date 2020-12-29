@@ -23,6 +23,11 @@ class ProfilFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profil, container, false)
+
+        view.backToHome_btn.setOnClickListener{
+            findNavController().navigate(R.id.action_profilFragment_to_mainFragment)
+        }
+
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         val personId = LoginFragment.profilId
@@ -41,6 +46,10 @@ class ProfilFragment : Fragment() {
             mUserViewModel.getDelete(personId)
             Toast.makeText(requireContext(), "Your account is deleted!", Toast.LENGTH_LONG).show()
             findNavController().navigate(R.id.action_profilFragment_to_listFragment)
+        }
+
+        view.update_btn.setOnClickListener{
+            findNavController().navigate(R.id.action_profilFragment_to_updateFragment)
         }
 
         return view

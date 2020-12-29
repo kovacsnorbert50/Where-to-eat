@@ -127,7 +127,7 @@
         android:layout_marginTop="350dp"
         android:ems="10"
         android:inputType="textPassword"
-        android:hint="Password configuration"
+        android:hint="Password again"
         android:drawableStart="@drawable/ic_lock"
         android:drawablePadding="10dp"
         app:layout_constraintBottom_toBottomOf="@id/addPassword"

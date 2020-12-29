@@ -35,8 +35,28 @@ interface UserDao {
     @Query("SELECT email FROM user_table WHERE id = :id")
     fun getEmail(id: Int): String
 
+    @Query("SELECT password FROM user_table WHERE id = :id")
+    fun getPassword(id: Int): String
+
     @Query("DELETE FROM user_table WHERE id = :id")
     fun getDelete(id: Int)
 
+    @Query("UPDATE user_table SET firstName = :name WHERE id = :id ")
+    fun updateFirstName(name: String, id: Int)
+
+    @Query("UPDATE user_table SET lastName = :name WHERE id = :id ")
+    fun updateLastName(name: String, id: Int)
+
+    @Query("UPDATE user_table SET address = :addr WHERE id = :id ")
+    fun updateAddress(addr: String, id: Int)
+
+    @Query("UPDATE user_table SET phoneNumber = :tel WHERE id = :id ")
+    fun updatePhoneNumber(tel: String, id: Int)
+
+    @Query("UPDATE user_table SET email = :mail WHERE id = :id ")
+    fun updateEmail(mail: String, id: Int)
+
+    @Query("UPDATE user_table SET password = :pass WHERE id = :id ")
+    fun updatePassword(pass: String, id: Int)
 
 }

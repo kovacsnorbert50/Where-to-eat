@@ -38,7 +38,35 @@ class UserRepository(private val userDao: UserDao) {
         return userDao.getEmail(id)
     }
 
+    fun getPassword(id: Int): String{
+        return userDao.getPassword(id)
+    }
+
     fun getDelete(id: Int){
         userDao.getDelete(id)
+    }
+
+    fun updateFirstName(name: String, id: Int){
+        userDao.updateFirstName(name, id)
+    }
+
+    fun updateLastName(name: String, id: Int){
+        userDao.updateLastName(name, id)
+    }
+
+    fun updateAddress(addr: String, id: Int){
+        userDao.updateAddress(addr, id)
+    }
+
+    fun updatePhoneNumber(tel: String, id: Int){
+        userDao.updatePhoneNumber(tel, id)
+    }
+
+    fun updateEmail(mail: String, id: Int){
+        userDao.updateEmail(mail, id)
+    }
+
+    fun updatePassword(pass: String, id: Int){
+        userDao.updatePassword(pass, id)
     }
 }

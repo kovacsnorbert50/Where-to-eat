@@ -52,7 +52,35 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
         return repository.getEmail(id)
     }
 
+    fun getPassword(id: Int): String{
+        return repository.getPassword(id)
+    }
+
     fun getDelete(id: Int){
         repository.getDelete(id)
+    }
+
+    fun updateFirstName(name: String, id: Int){
+        repository.updateFirstName(name, id)
+    }
+
+    fun updateLastName(name: String, id: Int){
+        repository.updateLastName(name, id)
+    }
+
+    fun updateAddress(addr: String, id: Int){
+        repository.updateAddress(addr, id)
+    }
+
+    fun updatePhoneNumber(tel: String, id: Int){
+        repository.updatePhoneNumber(tel, id)
+    }
+
+    fun updateEmail(mail: String, id: Int){
+        repository.updateEmail(mail, id)
+    }
+
+    fun updatePassword(pass: String, id: Int){
+        repository.updatePassword(pass, id)
     }
 }
