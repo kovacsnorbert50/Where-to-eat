@@ -1,7 +1,6 @@
 package com.example.wheretoeat.fragments.main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,9 +37,11 @@ class MainFragment : Fragment() {
         viewModel.getRestaurants()
 
         viewModel.myResponse3.observe(viewLifecycleOwner, Observer { response ->
-            recyc_view.adapter = ItemAdapter(response.restaurants)
+            recyc_view.adapter = ItemAdapter(response.restaurants, this)
             viewModel.restaurant.addAll(response.restaurants)
         })
+
+        restaurantsList = viewModel.restaurant
 
         recyc_view = view.recycler_view
         view.recycler_view.layoutManager = LinearLayoutManager(this.context)
@@ -48,4 +49,16 @@ class MainFragment : Fragment() {
 
         return view
     }
+
+    companion object{
+        var restaurantsList: List<Restaurant> = emptyList()
+        var positionList: List<Int> = emptyList()
+        var itemPosition: Int = -1
+    }
+
+    fun onItemClick(position: Int) {
+        itemPosition = position
+        findNavController().navigate(R.id.action_mainFragment_to_itemFragment)
+    }
+
 }

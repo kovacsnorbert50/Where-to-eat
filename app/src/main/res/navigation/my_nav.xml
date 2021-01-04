@@ -48,6 +48,9 @@
         <action
             android:id="@+id/action_profilFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_profilFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -57,6 +60,9 @@
         <action
             android:id="@+id/action_mainFragment_to_profilFragment"
             app:destination="@id/profilFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_itemFragment"
+            app:destination="@id/itemFragment" />
     </fragment>
     <fragment
         android:id="@+id/updateFragment"
@@ -68,9 +74,18 @@
             app:destination="@id/profilFragment" />
     </fragment>
     <fragment
-        android:id="@+id/blankFragment"
-        android:name="com.example.wheretoeat.BlankFragment"
-        android:label="fragment_blank"
-        tools:layout="@layout/fragment_blank" />
+        android:id="@+id/itemFragment"
+        android:name="com.example.wheretoeat.fragments.item.ItemFragment"
+        android:label="fragment_item"
+        tools:layout="@layout/fragment_item" >
+        <action
+            android:id="@+id/action_itemFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.example.wheretoeat.fragments.map.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" />
 
 </navigation>

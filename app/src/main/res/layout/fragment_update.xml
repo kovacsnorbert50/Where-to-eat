@@ -132,7 +132,7 @@
         android:id="@+id/textDown"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextViewskdmskjnkdnaskndsnjnfjkndsfnsdjknfksdjnkfdjfkndjsfndkjnfknsdjnfksjdnfkdjsnfk"
+        android:text="You don't have to fill in all fields, only which one you want to change"
         android:textAlignment="center"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -154,5 +154,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+    <ImageButton
+        android:id="@+id/update_password_image1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/ic_visibility"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.959"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.393" />
+
+    <ImageButton
+        android:id="@+id/update_password_image2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="13dp"
+        android:background="@drawable/ic_visibility"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.464" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

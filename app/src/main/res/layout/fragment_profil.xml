@@ -12,8 +12,10 @@
         android:id="@+id/profilFullName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FirstName"
+        android:text="Name"
         android:textSize="40dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.56" />
+        app:layout_constraintVertical_bias="0.61" />
 
     <Button
         android:id="@+id/delete_btn"
@@ -102,8 +104,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.468" />
+        app:layout_constraintTop_toBottomOf="@+id/delete_btn"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/backToHome_btn"
@@ -117,5 +119,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/logOut_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log out"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/update_btn" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="370dp"
+        android:layout_height="246dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:listitem="@layout/one_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
