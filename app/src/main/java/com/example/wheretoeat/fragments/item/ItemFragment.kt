@@ -44,6 +44,14 @@ class ItemFragment : Fragment() {
             findNavController().navigate(R.id.action_itemFragment_to_mapsFragment)
         }
 
+        view.backToHomeFromItem_btn.setOnClickListener{
+            findNavController().navigate(R.id.action_itemFragment_to_mainFragment)
+        }
+
+        view.addToFavourites_btn.setOnClickListener{
+
+        }
+
         return view
     }
 
