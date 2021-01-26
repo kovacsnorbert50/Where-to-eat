@@ -110,7 +110,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/map_btn"
-        app:layout_constraintVertical_bias="0.24000001" />
+        app:layout_constraintVertical_bias="0.24000001"
+        android:visibility="visible"/>
+
+    <Button
+        android:id="@+id/deleteFromFavourites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete from favourites"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/map_btn"
+        app:layout_constraintVertical_bias="0.24000001"
+        android:visibility="visible"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/backToHomeFromItem_btn"

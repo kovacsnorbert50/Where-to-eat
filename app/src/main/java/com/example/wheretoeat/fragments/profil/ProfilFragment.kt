@@ -1,28 +1,30 @@
 package com.example.wheretoeat.fragments.profil
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.wheretoeat.MainViewModel
-import com.example.wheretoeat.ProfilItemAdapter
-import com.example.wheretoeat.R
+import com.example.wheretoeat.*
 import com.example.wheretoeat.data.UserViewModel
+import com.example.wheretoeat.favourites.FavouriteViewModel
 import com.example.wheretoeat.fragments.login.LoginFragment
-import com.example.wheretoeat.fragments.main.MainFragment
+import com.example.wheretoeat.modul.Restaurant
 import com.example.wheretoeat.repository.Repository
-import kotlinx.android.synthetic.main.fragment_main.view.*
 import kotlinx.android.synthetic.main.fragment_profil.view.*
 
 class ProfilFragment : Fragment() {
 
     private lateinit var mUserViewModel: UserViewModel
+    private lateinit var mFavouriteViewModel: FavouriteViewModel
+    private lateinit var viewModel: MainViewModel
     private lateinit var recyc_view: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +37,7 @@ class ProfilFragment : Fragment() {
         }
 
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        mFavouriteViewModel = ViewModelProvider(this).get(FavouriteViewModel::class.java)
 
         val personId = LoginFragment.profilId
         val firstName = mUserViewModel.getFirstName(personId)
@@ -48,15 +51,40 @@ class ProfilFragment : Fragment() {
         view.profilEmail.text = email
         view.profilPhoneNumber.text = tel
 
-        /*
-        recyc_view.adapter = ProfilItemAdapter(MainFragment.restaurantsList, this)
+        //- - - - -
+        val tempList: MutableList<Restaurant> = mutableListOf()
+        var favouriteList: List<String> = listOf()
 
-        recyc_view = view.recycler_view
-        view.recycler_view.layoutManager = LinearLayoutManager(this.context)
-        view.recycler_view.setHasFixedSize(true)
 
-         */
+        val repository = Repository()
+        val viewModelFactory = MainViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+        viewModel.getRestaurants()
 
+        val name = mUserViewModel.getFirstName(personId) + " " + mUserViewModel.getLastName(personId)
+        favouriteList = mFavouriteViewModel.getFavouriteNames(name)
+
+        viewModel.myResponse3.observe(viewLifecycleOwner, Observer { response ->
+
+            for (i in response.restaurants){
+                for(j in favouriteList){
+                    if(i.name == j){
+                        tempList.add(i)
+                    }
+                }
+            }
+
+            recyc_view.adapter = ProfilItemAdapter(tempList, this)
+            //viewModel.restaurant.addAll(response.restaurants)
+        })
+
+        // MainFragment.restaurantsList = viewModel.restaurant
+
+        recyc_view = view.findViewById(R.id.profilRecycler)
+        recyc_view.layoutManager = LinearLayoutManager(requireContext())
+        recyc_view.setHasFixedSize(true)
+
+        //- - - -
 
         view.delete_btn.setOnClickListener{
             mUserViewModel.getDelete(personId)

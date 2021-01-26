@@ -131,7 +131,8 @@
         app:layout_constraintTop_toBottomOf="@+id/update_btn" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="370dp"
+        android:id="@+id/profilRecycler"
+        android:layout_width="347dp"
         android:layout_height="246dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

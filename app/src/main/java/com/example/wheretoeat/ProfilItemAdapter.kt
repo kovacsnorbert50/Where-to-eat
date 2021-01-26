@@ -10,9 +10,10 @@ import com.bumptech.glide.Glide
 import com.example.wheretoeat.fragments.profil.ProfilFragment
 import com.example.wheretoeat.modul.Restaurant
 import kotlinx.android.synthetic.main.one_item.view.*
+import java.nio.file.Files.size
 
 class ProfilItemAdapter(
-        private val List: List<Restaurant>,
+        private val List: MutableList<Restaurant>,
         private val listener: ProfilFragment
 ):
         RecyclerView.Adapter<ProfilItemAdapter.ItemViewHolder>() {
@@ -24,8 +25,7 @@ class ProfilItemAdapter(
         return ItemViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-
+    override fun onBindViewHolder(holder: ProfilItemAdapter.ItemViewHolder, position: Int) {
         val currentItem = List[position]
 
         Glide.with(holder.restaurantImage.context)
@@ -33,9 +33,12 @@ class ProfilItemAdapter(
                 .into(holder.restaurantImage)
         holder.restaurantName.text = currentItem.name
         holder.restaurantAddress.text = currentItem.address
+
     }
 
-    override fun getItemCount() = List.size
+    override fun getItemCount(): Int {
+        return List.size
+    }
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
