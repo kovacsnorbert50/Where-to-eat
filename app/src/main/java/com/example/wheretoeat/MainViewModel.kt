@@ -15,7 +15,10 @@ class MainViewModel(private val repository: Repository): ViewModel() {
     val myResponse1: MutableLiveData<Cities> = MutableLiveData()
     val myResponse2: MutableLiveData<Countries> = MutableLiveData()
     val myResponse3: MutableLiveData<Restaurants> = MutableLiveData()
+    //vendeglok elhelyezese egy listaban (MainFragment)
     val restaurant: MutableList<Restaurant> = mutableListOf()
+    //vendeglok elhelyezese egy listaban (ProfilFragment)
+    val favouriteRestaurant: MutableList<Restaurant> = mutableListOf()
 
     fun getCities(){
         viewModelScope.launch {

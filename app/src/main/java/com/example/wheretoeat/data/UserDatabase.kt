@@ -23,7 +23,7 @@ abstract class UserDatabase: RoomDatabase() {
                     context.applicationContext,
                     UserDatabase::class.java,
                     "user_database"
-                ).allowMainThreadQueries().build()
+                ).allowMainThreadQueries().build() //a lekerdezesek miatt kellett, mert nem birta a szal a terhelest
                 INSTANCE = instance
                 return instance
             }

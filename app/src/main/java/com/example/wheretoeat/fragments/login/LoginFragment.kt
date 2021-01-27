@@ -34,6 +34,7 @@ class LoginFragment : Fragment() {
 
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
+        //gombok
         view.login_btn2.setOnClickListener{
             loginToApplication()
         }
@@ -49,6 +50,7 @@ class LoginFragment : Fragment() {
         return view
     }
 
+    //bejelentkezett felhasznalo megjegyzese
     companion object{
         var profilId: Int = -1
     }
@@ -69,6 +71,7 @@ class LoginFragment : Fragment() {
             return
         }
 
+        //ha az adatbazisban megfelelnek az adatok
         if (passwordInDatabase == passw){
             Toast.makeText(requireContext(), "You logged in successfully!", Toast.LENGTH_LONG).show()
             profilId = mUserViewModel.getProfilId(email)

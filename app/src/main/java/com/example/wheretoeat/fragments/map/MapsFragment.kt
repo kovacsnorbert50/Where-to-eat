@@ -17,8 +17,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsFragment : Fragment() {
 
-
-
     private val callback = OnMapReadyCallback { googleMap ->
 
         val sydney = LatLng(ItemFragment.latitude, ItemFragment.longitude)

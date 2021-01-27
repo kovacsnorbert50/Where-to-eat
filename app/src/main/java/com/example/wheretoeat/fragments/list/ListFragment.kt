@@ -21,6 +21,7 @@ class ListFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_list, container, false)
 
+        //gombok
         view.registration_btn.setOnClickListener{
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }

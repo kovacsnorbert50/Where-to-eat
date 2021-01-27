@@ -1,5 +1,6 @@
 package com.example.wheretoeat
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ class ItemAdapter(
         return ItemViewHolder(itemView)
     }
 
+    //recycler view adatainak a beallitasa
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         val currentItem = List[position]

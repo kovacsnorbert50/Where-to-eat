@@ -37,6 +37,7 @@ class AddFragment : Fragment() {
 
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
+        //gombok
         view.add_btn.setOnClickListener{
             insertDataToDatabase()
         }
@@ -60,13 +61,23 @@ class AddFragment : Fragment() {
         val password = addPassword.text.toString()
         val passwordConfig = addPasswordConfig.text.toString()
 
+        //ha nem megfeleloek az adatok
+        if (!isValidEmail(email)){
+            Toast.makeText(requireContext(), "Wrong email address!", Toast.LENGTH_LONG).show()
+            return
+        }
+        if (!isValidPassword(password)){
+            Toast.makeText(requireContext(), "Min 8 : 1 uppercase, 1 lowercase, 1 number", Toast.LENGTH_LONG).show()
+            return
+        }
+
         if (inputCheck(firstName, lastName, address, phoneNumber, email, password, passwordConfig) && password == passwordConfig){
-            //Create user object
+            //felhasznalo objektum letrehozasa
             val user = User(0, firstName, lastName, address, phoneNumber, email, password)
-            //Add data to database
+            //objektum hozzaadasa az adatbazishoz
             mUserViewModel.addUser(user)
             Toast.makeText(requireContext(), "Successfull registration!", Toast.LENGTH_LONG).show()
-            //Navigate back
+
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }
         else{
@@ -76,6 +87,16 @@ class AddFragment : Fragment() {
 
     private fun inputCheck(firstName: String, lastName: String, address: String, phoneNumber: String, email: String, password: String, passwordConfig: String): Boolean{
         return !(TextUtils.isEmpty(firstName) && TextUtils.isEmpty(lastName) && TextUtils.isEmpty(address) && TextUtils.isEmpty(phoneNumber) && TextUtils.isEmpty(email) && TextUtils.isEmpty(password) && TextUtils.isEmpty(passwordConfig))
+    }
+
+    private fun isValidEmail(email: String): Boolean{
+        val regex = ("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}\$").toRegex()
+        return regex.matches(email)
+    }
+
+    private fun isValidPassword(password: String): Boolean{
+        val regex = ("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}\$").toRegex()
+        return regex.matches(password)
     }
 
     private fun showPassword1(isShow: Boolean) {

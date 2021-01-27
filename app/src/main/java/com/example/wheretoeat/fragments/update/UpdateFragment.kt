@@ -74,9 +74,17 @@ class UpdateFragment : Fragment() {
             mUserViewModel.updatePhoneNumber(phoneNumber, personId)
         }
         if (!email.isEmpty()){
+            if (!isValidEmail(email)){
+                Toast.makeText(requireContext(), "Wrong email address!", Toast.LENGTH_LONG).show()
+                return
+            }
             mUserViewModel.updateEmail(email, personId)
         }
         if (!password.isEmpty()){
+            if (!isValidPassword(password)){
+                Toast.makeText(requireContext(), "Min 8 : 1 uppercase, 1 lowercase, 1 number", Toast.LENGTH_LONG).show()
+                return
+            }
             if (password == passwordConfig){
                 mUserViewModel.updatePassword(password, personId)
             }
@@ -87,6 +95,16 @@ class UpdateFragment : Fragment() {
         }
         Toast.makeText(requireContext(), "Your account is updated!", Toast.LENGTH_LONG).show()
         findNavController().navigate(R.id.action_updateFragment_to_profilFragment)
+    }
+
+    private fun isValidEmail(email: String): Boolean{
+        val regex = ("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}\$").toRegex()
+        return regex.matches(email)
+    }
+
+    private fun isValidPassword(password: String): Boolean{
+        val regex = ("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}\$").toRegex()
+        return regex.matches(password)
     }
 
     private fun showPassword1(isShow: Boolean) {

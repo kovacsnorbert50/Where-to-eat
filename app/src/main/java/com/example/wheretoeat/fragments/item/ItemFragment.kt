@@ -19,6 +19,7 @@ import com.example.wheretoeat.favourites.Favourite
 import com.example.wheretoeat.favourites.FavouriteViewModel
 import com.example.wheretoeat.fragments.login.LoginFragment
 import com.example.wheretoeat.fragments.main.MainFragment
+import com.example.wheretoeat.fragments.profil.ProfilFragment
 import kotlinx.android.synthetic.main.fragment_item.*
 import kotlinx.android.synthetic.main.fragment_item.view.*
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -37,11 +38,20 @@ class ItemFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_item, container, false)
 
+        //inicializalas
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         mFavouriteViewModel = ViewModelProvider(this).get(FavouriteViewModel::class.java)
 
-        val position = MainFragment.itemPosition
-        val restList = MainFragment.restaurantsList
+        //flag-et hasznalunk azert, hogy tudjuk melyik fragmentrol hivjuk az itemFragmentet(mas-mas lista es pozicio miatt)
+        //megfelelo vendeglo lista es pozicio beallitasa(flag = 1 ha mainFragmentrol hivjuk , profilFragment eseten 0)
+        var position = MainFragment.itemPosition
+        var restList = MainFragment.restaurantsList
+
+        if (MainFragment.flag == 0){
+            position = ProfilFragment.itemPos
+            restList = ProfilFragment.favouriteRestaurantsList
+        }
+
         val userName = mUserViewModel.getFirstName(personId) + " " + mUserViewModel.getLastName(personId)
         val favouriteList: List<String> = mFavouriteViewModel.getFavouriteNames(userName)
 
@@ -51,35 +61,23 @@ class ItemFragment : Fragment() {
         view.itemPhoneNumber.text = "Tel: " + restList[position].phone
         view.itemPostalCode.text = "Postal code: " + restList[position].postal_code
 
+        //terkephez szukseges adatok
         longitude = restList[position].lng
         latitude = restList[position].lat
         area = restList[position].area
 
+        //kep betoltese
         Glide.with(view.context)
                 .load(restList[position].image_url)
                 .into(view.itemImage)
 
+        //gombok
         view.map_btn.setOnClickListener{
             findNavController().navigate(R.id.action_itemFragment_to_mapsFragment)
         }
 
         view.backToHomeFromItem_btn.setOnClickListener{
             findNavController().navigate(R.id.action_itemFragment_to_mainFragment)
-        }
-        var flag: Int = 0
-        for (i in favouriteList){
-            if (i == restList[position].name){
-                flag = 1
-            }
-        }
-
-        if (flag == 1){
-            view.addToFavourites_btn.visibility = View.GONE
-            view.deleteFromFavourites.visibility = View.VISIBLE
-        }
-        else{
-            view.deleteFromFavourites.visibility = View.GONE
-            view.addToFavourites_btn.visibility = View.VISIBLE
         }
 
         view.addToFavourites_btn.setOnClickListener{
@@ -96,6 +94,24 @@ class ItemFragment : Fragment() {
             mFavouriteViewModel.deleteFromFavourites(restList[position].name, userName)
             Toast.makeText(requireContext(), "Successfully deleted!", Toast.LENGTH_LONG).show()
 
+            //kezdetben mindig az add gomb lathato masik eltunik
+            view.deleteFromFavourites.visibility = View.GONE
+            view.addToFavourites_btn.visibility = View.VISIBLE
+        }
+
+        //Add to favourites / Delete from favourites valtogatasa, a vendeglo allapotatol fuggoen
+        var flag: Int = 0
+        for (i in favouriteList){
+            if (i == restList[position].name){
+                flag = 1
+            }
+        }
+
+        if (flag == 1){
+            view.addToFavourites_btn.visibility = View.GONE
+            view.deleteFromFavourites.visibility = View.VISIBLE
+        }
+        else{
             view.deleteFromFavourites.visibility = View.GONE
             view.addToFavourites_btn.visibility = View.VISIBLE
         }

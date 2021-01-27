@@ -16,6 +16,7 @@ import com.example.wheretoeat.*
 import com.example.wheretoeat.data.UserViewModel
 import com.example.wheretoeat.favourites.FavouriteViewModel
 import com.example.wheretoeat.fragments.login.LoginFragment
+import com.example.wheretoeat.fragments.main.MainFragment
 import com.example.wheretoeat.modul.Restaurant
 import com.example.wheretoeat.repository.Repository
 import kotlinx.android.synthetic.main.fragment_profil.view.*
@@ -55,6 +56,7 @@ class ProfilFragment : Fragment() {
         val tempList: MutableList<Restaurant> = mutableListOf()
         var favouriteList: List<String> = listOf()
 
+        MainFragment.flag = 0
 
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
@@ -64,6 +66,7 @@ class ProfilFragment : Fragment() {
         val name = mUserViewModel.getFirstName(personId) + " " + mUserViewModel.getLastName(personId)
         favouriteList = mFavouriteViewModel.getFavouriteNames(name)
 
+        //kedvenc vendeglok elhelyezese a recycler viewban
         viewModel.myResponse3.observe(viewLifecycleOwner, Observer { response ->
 
             for (i in response.restaurants){
@@ -75,17 +78,17 @@ class ProfilFragment : Fragment() {
             }
 
             recyc_view.adapter = ProfilItemAdapter(tempList, this)
-            //viewModel.restaurant.addAll(response.restaurants)
+            viewModel.favouriteRestaurant.addAll(tempList)
         })
 
-        // MainFragment.restaurantsList = viewModel.restaurant
+        //mentes
+        favouriteRestaurantsList = viewModel.favouriteRestaurant
 
         recyc_view = view.findViewById(R.id.profilRecycler)
         recyc_view.layoutManager = LinearLayoutManager(requireContext())
         recyc_view.setHasFixedSize(true)
 
-        //- - - -
-
+        //gombok
         view.delete_btn.setOnClickListener{
             mUserViewModel.getDelete(personId)
             Toast.makeText(requireContext(), "Your account is deleted!", Toast.LENGTH_LONG).show()
@@ -101,5 +104,15 @@ class ProfilFragment : Fragment() {
         }
 
         return view
+    }
+
+    companion object{
+        var favouriteRestaurantsList: List<Restaurant> = emptyList()
+        var itemPos: Int = -1
+    }
+
+    fun onItemClick(position: Int) {
+        itemPos = position
+        findNavController().navigate(R.id.action_profilFragment_to_itemFragment)
     }
 }
