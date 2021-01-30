@@ -90,6 +90,9 @@
         <action
             android:id="@+id/action_itemFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_itemFragment_to_profilFragment"
+            app:destination="@id/profilFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"

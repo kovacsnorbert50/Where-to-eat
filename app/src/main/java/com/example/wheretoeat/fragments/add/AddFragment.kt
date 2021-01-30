@@ -41,13 +41,19 @@ class AddFragment : Fragment() {
         view.add_btn.setOnClickListener{
             insertDataToDatabase()
         }
+
         view.password_image1.setOnClickListener{
             mIsShowPass1 = !mIsShowPass1
             showPassword1(mIsShowPass1)
         }
+
         view.password_image2.setOnClickListener{
             mIsShowPass2 = !mIsShowPass2
             showPassword2(mIsShowPass2)
+        }
+
+        view.textViewOops.setOnClickListener {
+            findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }
         return view
     }
